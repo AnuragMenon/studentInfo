@@ -27,7 +27,7 @@
 			$.ajax({
 				url:'saveOrUpdate',
 				type:'POST',
-				data:{user_id:$("#studentName").val(),studentName:$('#name').val(),branch:$('#branch').val()},
+				data:{studentid:$("#studentid").val(),studentName:$('#studentName').val(),branch:$('#branch').val()},
 				success: function(response){
 						alert(response.message);
 						load();		

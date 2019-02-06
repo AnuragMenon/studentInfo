@@ -13,8 +13,24 @@ import com.services.StudentServices;
 public class StudentServicesImpl implements StudentServices {
 
 	@Autowired
-	static
-	StudentDao studentDao;
+	
+	StudentDao studentDao = new StudentDao() {
+		
+		public boolean saveOrUpdate(Student users) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		public List<Student> list() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		public boolean delete(Student users) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
 	public List<Student> list() {
 		// TODO Auto-generated method stub
 		return studentDao.list();

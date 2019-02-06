@@ -1,6 +1,5 @@
 package com.controllers;
 
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +17,11 @@ import com.servicesImpl.StudentServicesImpl;
 @RequestMapping(value = "users")
 public class StudentController {
 
-	StudentServicesImpl userServices;
+	StudentServicesImpl userServices =new StudentServicesImpl();
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
-		ModelAndView view = new ModelAndView("hello");
+		ModelAndView view = new ModelAndView("users");
 		return view;
 	}
 
@@ -46,11 +45,11 @@ public class StudentController {
 		if(list != null) {
 			map.put("status", "200");
 			map.put("message", "Data found");
-			map.put("message", list);		
+			map.put("data", list);		
 		}
 		else {
 			map.put("status", "404");
-			map.put("message", "Data found");
+			map.put("message", "Data not found");
 		}
 		
 		return map;

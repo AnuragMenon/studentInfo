@@ -24,9 +24,9 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	<!-- If you use MySQL Database comment out this bean and let others commented  -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" ></property>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/students" ></property>
-		<property name="username" value="root" ></property>
-		<property name="password" value="password" ></property>
+		<property name="url" value="jdbc:mysql://172.30.11.206:3306/students" ></property>
+		<property name="username" value="rtd1" ></property>
+		<property name="password" value="rtd1" ></property>
 	</bean>
 	
 	<!-- Session Factory Declaration -->
@@ -39,11 +39,9 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 				<!-- SQL Dialect -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				
-				<!-- SQL Server 2014 Dialect -->
-				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
 				
 				<!-- Your required Database Name -->
-				<prop key="hibernate.default_schema">tests</prop>
+				<prop key="hibernate.default_schema">students</prop>
 				
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
