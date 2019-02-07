@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.entities.Student;
+import com.services.StudentServices;
 import com.servicesImpl.StudentServicesImpl;
 
 @Controller
 @RequestMapping(value = "users")
 public class StudentController {
 
-	StudentServicesImpl userServices =new StudentServicesImpl();
+	StudentServices userServices;
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {

@@ -22,7 +22,7 @@ SessionFactory session;
 	}
 
 	public List<Student> list() {
-		return session.getCurrentSession().createQuery("from students").list();
+		return session.getCurrentSession().createQuery("from Student").list();
 	}
 
 	public boolean delete(Student users) {

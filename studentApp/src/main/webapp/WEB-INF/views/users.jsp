@@ -11,8 +11,8 @@
 <body onload="load();">
 
 		<input type="hidden" id="studentid">
-		StudentName: <input type="text" id="name" required="required" name="studentName"><br>
-		Branch: <input type="text" id="name" required="required" name="branch"><br>
+		StudentName: <input type="text" id="studentName" required="required" name="studentName"><br>
+		Branch: <input type="text" id="branch" required="required" name="branch"><br>
 		<button onclick="submit();">Submit</button>
 	
 		<table id="table" border=1>

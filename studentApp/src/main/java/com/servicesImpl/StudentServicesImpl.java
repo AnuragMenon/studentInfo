@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.StudentDao;
+import com.daoImpl.StudentDaoImpl;
 import com.entities.Student;
 import com.services.StudentServices;
 
@@ -13,24 +14,8 @@ import com.services.StudentServices;
 public class StudentServicesImpl implements StudentServices {
 
 	@Autowired
+	StudentDao studentDao; 
 	
-	StudentDao studentDao = new StudentDao() {
-		
-		public boolean saveOrUpdate(Student users) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		public List<Student> list() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		public boolean delete(Student users) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	};
 	public List<Student> list() {
 		// TODO Auto-generated method stub
 		return studentDao.list();
