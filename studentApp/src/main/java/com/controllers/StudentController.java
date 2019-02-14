@@ -6,28 +6,199 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.entities.Student;
 import com.services.StudentServices;
 
 @Controller
-@RequestMapping(value = "users")
+@RequestMapping(value = "/users")
 public class StudentController {
 
 	@Autowired
 	StudentServices userServices;
+	
+	
+	
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ModelAndView getPage() {
+		ModelAndView view = new ModelAndView("users");
+		return view;
+	}
+	//List<Student> list = userServices.list();
+	 //-------------------Retrieve All Users--------------------------------------------------------
+   /* 
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<List<Student>> listAllUsers() {
+        List<Student> users = userServices.findAllUsers();
+        if(users.isEmpty()){
+            return new ResponseEntity<List<Student>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Student>>(users, HttpStatus.OK);
+        
+    }
+ 
+ */
+    @RequestMapping(value= "/getalluser",produces = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.GET)
+	public @ResponseBody Map<String,Object> getAll(Student users){
+		Map<String,Object> map = new HashMap<String, Object>();		
+		List<Student> list = userServices.list();
+		if(list != null) {
+			map.put("status", "200");
+			map.put("message", "Data found");
+			map.put("data", list);		
+		}
+		else {
+			map.put("status", "404");
+			map.put("message", "Data not found");
+		}
+		
+		return map;
+	}
+    
+  //  @RequestMapping(value = "/getalluser", method = RequestMethod.GET)
+	//public List<Student> getResource(){
+	//		return list;
+//	}
+    
+    
+    //-------------------Retrieve Single User--------------------------------------------------------
+  /*     
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Student> getUser(@PathVariable("id") long id) {
+        System.out.println("Fetching User with id " + id);
+        Student user = userServices.findById(id);
+        if (user == null) {
+            System.out.println("User with id " + id + " not found");
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Student>(user, HttpStatus.OK);
+    }
+ 
+     
+     
+    //-------------------Create a User--------------------------------------------------------
+    
+   /* @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public ResponseEntity<Void> createUser(@RequestBody Student user,    UriComponentsBuilder ucBuilder) {
+        System.out.println("Creating User " + user.getStudentName());
+ 
+        if (userServices.isUserExist(user)) {
+            System.out.println("A User with name " + user.getStudentName() + " already exist");
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+ 
+        userServices.saveUser(user);
+ 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getStudentid()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+     */
+    
+    @RequestMapping(value = "/postuser" ,method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> getSaved( @RequestBody Student student) {
 
+    	
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (userServices.saveOrUpdate(student)) {
+			map.put("status", "200");
+			map.put("message", "Record saved successfully");
+		}
+		return map;
+	}
+   
+   
+    //------------------- Update a User --------------------------------------------------------
+   /*  
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Student> updateUser(@PathVariable("id") long id, @RequestBody Student user) {
+        System.out.println("Updating User " + id);
+         
+        Student currentUser = userServices.findById(id);
+         
+        if (currentUser==null) {
+            System.out.println("User with id " + id + " not found");
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+ 
+        currentUser.setStudentName(user.getStudentName());
+        currentUser.setBranch(user.getBranch());
+         
+        userServices.updateUser(currentUser);
+        return new ResponseEntity<Student>(currentUser, HttpStatus.OK);
+    }
+ 
+    
+    
+    //------------------- Delete a User --------------------------------------------------------
+     
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Student> deleteUser(@PathVariable("id") long id) {
+        System.out.println("Fetching & Deleting User with id " + id);
+ 
+        Student user = userServices.findById(id);
+        if (user == null) {
+            System.out.println("Unable to delete. User with id " + id + " not found");
+            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+        }
+ 
+        userServices.deleteUserById(id);
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+    }
+ 
+     
+    
+    //------------------- Delete All Users --------------------------------------------------------
+     
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
+    public ResponseEntity<Student> deleteAllUsers() {
+        System.out.println("Deleting All Users");
+ 
+        userServices.deleteAllUsers();
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
+    }
+	
+	
+	/*public List<StudentServices> studentDetailsList = new ArrayList<StudentServices>();
+	
+	//List<Student> list = userServices.list();
+	
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
 		ModelAndView view = new ModelAndView("users");
 		return view;
 	}
 
-	@RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
+	@RequestMapping(value="/userdetails",method=RequestMethod.GET,produces="application/json")
+    public List<StudentServices> GetUserdetails()
+    {
+        return studentDetailsList;
+    }
+	
+	
+	@RequestMapping(value="/user",consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public List<StudentServices> ProcessUser(@RequestBody StudentServices userServices)
+    {
+        
+            studentDetailsList.add(userServices);
+        
+        return studentDetailsList;
+    }
+	
+	@RequestMapping(value = "/saveOrUpdate",consumes = MediaType.APPLICATION_JSON_VALUE ,method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> getSaved(Student users) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -38,7 +209,7 @@ public class StudentController {
 		return map;
 	}
 
-	@RequestMapping(value= "/list",method = RequestMethod.POST)
+	@RequestMapping(value= "/list",consumes = MediaType.APPLICATION_JSON_VALUE,method = RequestMethod.POST)
 	public @ResponseBody Map<String,Object> getAll(Student users){
 		Map<String,Object> map = new HashMap<String, Object>();
 		

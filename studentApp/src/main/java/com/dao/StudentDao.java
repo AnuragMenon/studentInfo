@@ -8,4 +8,25 @@ public interface StudentDao {
 	public boolean delete(Student users);
 	public boolean saveOrUpdate(Student users);
 
+	
+	/*------------------------------------------------------*/
+	
+	
+	
+	public Student findById(long id);
+	
+	public Student findByName(String name);
+	
+	public boolean saveUser(Student user);
+	
+	public boolean updateUser(Student user);
+	
+	public boolean deleteUserById(long id);
+
+	public List<Student> findAllUsers(); 
+	
+	public boolean deleteAllUsers();
+	
+	public boolean isUserExist(Student user);
+	
 }

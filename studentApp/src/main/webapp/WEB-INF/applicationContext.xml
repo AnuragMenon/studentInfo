@@ -20,6 +20,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	<mvc:annotation-driven /> 
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" ></mvc:resources>
+	<mvc:resources mapping="/static/**" location="/static/" />
 	
 	<!-- If you use MySQL Database comment out this bean and let others commented  -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
