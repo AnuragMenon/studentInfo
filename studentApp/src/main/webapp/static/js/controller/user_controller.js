@@ -27,7 +27,7 @@ App.controller('PostAdminController', ['$scope','$http','$location',function($sc
 
 App.controller('PostControllerLogin', ['$scope','$http','$location',function($scope, $http, $location) {
 	$scope.submitAdminForm = function(){
-		var url = "postuser";
+		var url = "validateUser";
 		
 		var config = {
                 headers : {
@@ -35,8 +35,8 @@ App.controller('PostControllerLogin', ['$scope','$http','$location',function($sc
                 }
         }
 		var data = {
-			userName : $scope.userName,
-            adminpassword : $scope.adminpassword,
+			email : $scope.email,
+            password : $scope.password,
         };
 	
 		$http.post(url, data, config).then(function (response) {
@@ -45,14 +45,14 @@ App.controller('PostControllerLogin', ['$scope','$http','$location',function($sc
 			alert(response.message);
 		});
 		
-		$scope.userName = "";
-		$scope.adminpassword = "";
+		$scope.email = "";
+		$scope.password = "";
 	}
 }]);
 
 App.controller('PostControllerRegister', ['$scope','$http','$location',function($scope, $http, $location) {
-	$scope.submitAdminForm = function(){
-		var url = "postuser";
+	$scope.submitForm1 = function(){
+		var url = "postStudent";
 		
 		var config = {
                 headers : {
@@ -60,11 +60,11 @@ App.controller('PostControllerRegister', ['$scope','$http','$location',function(
                 }
         }
 		var data = {
-			studentid : $scope.studentid,
+			//studentid : $scope.studentid,
             studentName : $scope.studentName,
-            branch : $branch,
-            email : $email,
-            password : $password
+            branch : $scope.branch,
+            email : $scope.email,
+            password : $scope.password
         };
 	
 		$http.post(url, data, config).then(function (response) {
@@ -73,7 +73,7 @@ App.controller('PostControllerRegister', ['$scope','$http','$location',function(
 			alert(response.message);
 		});
 		
-		$scope.studentid = "";
+		//$scope.studentid = "";
 		$scope.studentName = "";
 		$scope.branch = "";
 		$scope.email = "";
