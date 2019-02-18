@@ -23,7 +23,6 @@ public class StudentController {
 
 	@Autowired
 	StudentServices userServices;
-	AdminServices adminServices;
 	
 	
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
@@ -48,7 +47,7 @@ public class StudentController {
 	        System.out.println(user.getPassword());
 	        
 	        boolean isValid = false;
-	        isValid = adminServices.adminUser(user.getEmail(), user.getPassword());
+	        isValid = userServices.studentUser(user.getEmail(), user.getPassword());
 	        if(isValid) {
 	            msg = "Welcome " + user.getEmail() + "!";
 	        } else {
@@ -131,7 +130,7 @@ public class StudentController {
     }
      */
     
-    @RequestMapping(value = "/postuser" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/postStudent" ,method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> getSaved( @RequestBody Student student) {
 
     	
