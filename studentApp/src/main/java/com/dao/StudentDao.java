@@ -10,7 +10,7 @@ public interface StudentDao {
 
 	
 	/*------------------------------------------------------*/
-	
+	public boolean studentUser(String email, String password);
 	
 	
 	public Student findById(long id);

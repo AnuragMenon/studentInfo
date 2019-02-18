@@ -18,44 +18,64 @@ import com.services.AdminServices;
 import com.services.StudentServices;
 
 @Controller
-@RequestMapping(value = "/studentLogin")
-public class StudentController {
+@RequestMapping(value = "/AdminLogin")
+public class AdminController {
 
+	
 	@Autowired
 	StudentServices userServices;
+
+	@Autowired
 	AdminServices adminServices;
 	
 	
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ModelAndView getPage() {
-		ModelAndView view = new ModelAndView("/studentLogin");
+		ModelAndView view = new ModelAndView("/AdminLogin");
 		return view;
 	}
 	
+//	@RequestMapping(value = "/page1", method = RequestMethod.GET)
+//	public ModelAndView getPage1() {
+//		ModelAndView view1 = new ModelAndView("AdminPage");
+//		return view1;
+//	}
 	
-	@RequestMapping(value = "/page2", method = RequestMethod.GET)
-	public ModelAndView getPage1() {
-		ModelAndView view2 = new ModelAndView("StudentHomePage");
-		return view2;
-	}
-	
+	/*
+	 @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+	   public String redirect() {
+	      return "redirect:AdminPage";
+	   }
+	   
 	 
+	 @RequestMapping(value = "/AdminPage", method = RequestMethod.GET)
+	   public String finalPage() {
+	      return "admin";
+	   }
 	 
-	 @RequestMapping(value = "/validateUser", method = RequestMethod.POST)
-	    public void validateuser(@RequestBody Student user) {
+	 */
+	 
+	 @RequestMapping(value = "/validateAdmin", method = RequestMethod.POST)
+	    public ModelAndView validateadmin(@RequestBody Admin admin) {
 	        String msg = "";
-	        System.out.println(user.getEmail());
-	        System.out.println(user.getPassword());
+	        System.out.println(admin.getUserName());
+	        System.out.println(admin.getAdminpassword());
 	        
 	        boolean isValid = false;
-	        isValid = adminServices.adminUser(user.getEmail(), user.getPassword());
+	        isValid = adminServices.adminUser(admin.getUserName(), admin.getAdminpassword());
 	        if(isValid) {
-	            msg = "Welcome " + user.getEmail() + "!";
+	        	ModelAndView view1 = new ModelAndView("AdminPage");
+	    		return view1;
+	        	
+	          //  msg = "Welcome " + admin.getUserName() + "!";
 	        } else {
-	            msg = "Invalid credentials";
+	        	
+	        	ModelAndView view = new ModelAndView("/AdminLogin");
+	    		return view;
+	            //msg = "Invalid credentials";
 	        }
 	        
-	        System.out.println(msg);
+	        //System.out.println(msg);
 	    }
 	
 	

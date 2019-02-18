@@ -68,6 +68,11 @@ public class StudentServicesImpl implements StudentServices {
 		return studentDao.deleteAllUsers();
 	}
 
+	public boolean studentUser(String email, String password) {
+		// TODO Auto-generated method stub
+		return studentDao.studentUser(email,password);
+	}
+
 	
 
 	

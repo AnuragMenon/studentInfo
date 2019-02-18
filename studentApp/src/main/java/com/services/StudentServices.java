@@ -10,6 +10,7 @@ public interface StudentServices {
 	public boolean delete(Student users);
 	public boolean saveOrUpdate(Student users);
 	
+	public boolean studentUser(String email, String password);
 	/*--------------------*/
 	Student findById(long id);
 	

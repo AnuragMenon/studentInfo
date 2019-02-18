@@ -1,7 +1,57 @@
 'use strict';
 
-App.controller('PostController', ['$scope','$http','$location',function($scope, $http, $location) {
-	$scope.submitForm = function(){
+App.controller('PostAdminController', ['$scope','$http','$location',function($scope, $http, $location) {
+	$scope.submitAdminForm = function(){
+		var url = "validateAdmin";
+		
+		var config = {
+                headers : {
+                    'Accept': 'application/json'
+                }
+        }
+		var data = {
+			userName : $scope.userName,
+            adminpassword : $scope.adminpassword,
+        };
+	
+		$http.post(url, data, config).then(function (response) {
+			$scope.postResultMessage = response.data;
+		}, function (response) {
+			alert(response.message);
+		});
+		
+		$scope.userName = "";
+		$scope.adminpassword = "";
+	}
+}]);
+
+App.controller('PostControllerLogin', ['$scope','$http','$location',function($scope, $http, $location) {
+	$scope.submitAdminForm = function(){
+		var url = "postuser";
+		
+		var config = {
+                headers : {
+                    'Accept': 'application/json'
+                }
+        }
+		var data = {
+			userName : $scope.userName,
+            adminpassword : $scope.adminpassword,
+        };
+	
+		$http.post(url, data, config).then(function (response) {
+			$scope.postResultMessage = response.data;
+		}, function (response) {
+			alert(response.message);
+		});
+		
+		$scope.userName = "";
+		$scope.adminpassword = "";
+	}
+}]);
+
+App.controller('PostControllerRegister', ['$scope','$http','$location',function($scope, $http, $location) {
+	$scope.submitAdminForm = function(){
 		var url = "postuser";
 		
 		var config = {
@@ -12,7 +62,9 @@ App.controller('PostController', ['$scope','$http','$location',function($scope, 
 		var data = {
 			studentid : $scope.studentid,
             studentName : $scope.studentName,
-            branch : $scope.branch
+            branch : $branch,
+            email : $email,
+            password : $password
         };
 	
 		$http.post(url, data, config).then(function (response) {
@@ -24,10 +76,15 @@ App.controller('PostController', ['$scope','$http','$location',function($scope, 
 		$scope.studentid = "";
 		$scope.studentName = "";
 		$scope.branch = "";
+		$scope.email = "";
+		$scope.password = "";
 	}
 }]);
- 
-App.controller('GetController', ['$scope','$http','$location',function($scope, $http, $location) {
+
+
+
+
+App.controller('getController', ['$scope','$http','$location',function($scope, $http, $location) {
 	$scope.getfunction = function(){
 		var url = "getalluser";
 		
