@@ -82,7 +82,7 @@
 				<p class="text-center">Get started with your free account</p>
 				
 				
-				<form ng-submit="submitForm1()" name="myForm"> <!--FORM SUBMIT CONTROL  -->
+				<form ng-submit="submitForm1()" name="myForm1"> <!--FORM SUBMIT CONTROL  -->
 				
 					<div class="form-group input-group">
 						<input type="hidden" id="studentid" ng-model="studentid">
